@@ -67,21 +67,28 @@ def tah_hrace(pole, symbol):
 
 #print(tah_hrace('o-------------------', 'x'))
 
+SABLONY = [
+	"MM!", "!MM", "M!M",
+	"PP!", "!PP", P!P,
+	"-!M", "M!-", "-!M",
+	"-M!", "P!-", "-!P"
+]
+
 def tah_pocitace(pole, symbol):
-	"""Vrátí herní pole se zaznamenaným tahem počítače
+	if symbol == "x":
+		p = "o"
+	else:
+		p = "x"
 
-	`pole` je herní pole, na které se hraje.
-	`symbol` může být 'x' nebo 'o', podle toho jestli hráč hraje za křížky
-	nebo za kolečka.
-	"""
-	pozice_pc = random.randrange(0,20)
-
-	while True:
-		if pole[pozice_pc] == "-":
-			return tah(pole, pozice_pc, symbol)
-		else:
-			pozice_pc = random.randrange(0,20)
-
+	for sablona in SABLONY:
+		co_hledam = sablona.replace("M",symbol).replace("P",p).replace("!", "-")
+		cim_to_nahradim = sablona.replace("M",symbol).replace("P",p).replace("!", symbol)
+		if co_hledam in pole:
+			pozice = pole.index(co_hledam) + sablona.index("!")
+			return tah(pozice, pole, symbol)
+		pozice = pole.index("-")
+		return tah(pozice, pole, symbol)
+	
 #print(tah_pocitace('o-------------------', 'x'))
 
 def piskvorky1d():
